@@ -1,0 +1,51 @@
+---
+
+- name: glare dependencies
+  notify: "restart glare"
+  package: name="{{item}}" state=latest
+  with_items:
+    - python-dev
+    - libpq-dev
+    - libffi-dev
+    - python-pip
+
+- name: glare pip dependencies
+  pip: name="{{item}}" state=latest
+  with_items:
+    - pip
+    - pbr
+
+- name: pip uwsgi
+  notify: "restart glare"
+  pip: name=uwsgi state=latest
+  when: glare_deploy_with=="uwsgi"
+
+- name: glare
+  notify: "restart glare"
+  pip: name="{{glare_pip}}"
+
+- name: glare-uwsgi systemd file
+  notify:
+    - restart systemd
+    - restart glare
+  template: src=templates/glare.service dest=/etc/systemd/system/glare.service
+  when: glare_deploy_with=="uwsgi"
+
+- name: glare config directory
+  file: name=/etc/glare state=directory
+
+- name: glare config file
+  notify: "restart glare"
+  template: src=templates/glare.conf dest=/etc/glare/glare.conf
+
+- name: glare paste.ini
+  notify: restart glare
+  template: src=templates/glare-paste.ini dest=/etc/glare/glare-paste.ini
+
+- name: glare policy.json
+  notify: restart glare
+  template: src=templates/policy.json dest=/etc/glare/policy.json
+
+- name: glare service
+  service: name=glare state=started
+

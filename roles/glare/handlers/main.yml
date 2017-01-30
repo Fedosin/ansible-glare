@@ -1,0 +1,8 @@
+---
+
+- name: restart glare
+  service: name=glare state=restarted
+
+- name: restart systemd
+  command: /bin/systemctl daemon-reload
+

@@ -1,0 +1,9 @@
+---
+
+- name: nginx package
+  package: name=nginx state=latest
+
+- name: glare config
+  notify: reload nginx
+  template: src=templates/glare.conf dest=/etc/nginx/sites-enabled/glare.conf
+  when: glare_deploy_with=="uwsgi"

@@ -1,0 +1,16 @@
+---
+
+- hosts: vm
+  remote_user: ubuntu
+  become: true
+  vars:
+    glare_pip: git+git://git.openstack.org/openstack/glare.git#egg=glare
+    glare_nginx_port: 9494
+    glare_user: www-data
+    glare_deploy_with: uwsgi
+    glare_uwsgi_socket: /tmp/glare.sock
+    glare_protocol: http
+    glare_domain: glare.example.net:9494
+  roles:
+    - nginx
+    - glare
