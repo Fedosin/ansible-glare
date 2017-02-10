@@ -88,9 +88,12 @@ Now copy/edit examples/full.yml::
         glare_uwsgi_socket: /tmp/glare.sock
         glare_protocol: http
         glare_domain: 192.168.10.10:9494
+        init: systemd
       roles:
         - nginx
         - glare
+
+NOTE: use "init: upstart" for upstart based systems
 
 And finally deploy everything::
 
