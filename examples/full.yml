@@ -10,8 +10,12 @@
     glare_deploy_with: uwsgi
     glare_uwsgi_socket: /tmp/glare.sock
     glare_db_location: /tmp/glare.sqlite
+    glare_enabled_artifact_types:
+    glare_custom_artifact_types_modules:
     glare_protocol: http
     glare_domain: glare.example.net:9494
+    glare_flavor:
+    glare_keycloak_auth_url:
     init: systemd
   roles:
     - nginx

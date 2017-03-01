@@ -79,15 +79,20 @@ Now copy/edit examples/full.yml::
     ---
     - hosts: target
       remote_user: ubuntu
-      become: true
+      become: yes
       vars:
         glare_pip: git+git://git.openstack.org/openstack/glare.git#egg=glare
         glare_nginx_port: 9494
         glare_user: www-data
         glare_deploy_with: uwsgi
         glare_uwsgi_socket: /tmp/glare.sock
+        glare_db_location: /tmp/glare.sqlite
+        glare_enabled_artifact_types:
+        glare_custom_artifact_types_modules:
         glare_protocol: http
         glare_domain: 192.168.10.10:9494
+        glare_flavor:
+        glare_keycloak_auth_url:
         init: systemd
       roles:
         - nginx
