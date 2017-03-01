@@ -55,6 +55,12 @@
   notify: restart glare
   template: src=templates/policy.json dest=/etc/glare/policy.json
 
+- name: Perform a Glare DB sync
+  notify: restart glare
+  command: "glare-db-manage upgrade"
+  become_user: "{{glare_user}}"
+
 - name: glare service
+  notify: reload nginx
   service: name=glare state=started
 

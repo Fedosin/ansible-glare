@@ -9,9 +9,10 @@
     glare_user: www-data
     glare_deploy_with: uwsgi
     glare_uwsgi_socket: /tmp/glare.sock
+    glare_db_location: /tmp/glare.sqlite
     glare_protocol: http
     glare_domain: glare.example.net:9494
-    init: upstart
+    init: systemd
   roles:
     - nginx
     - glare
