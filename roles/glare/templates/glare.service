@@ -3,7 +3,7 @@ Description=Glare Artifact Repository Service
 
 [Service]
 Environment=GLARE_CONFIG_FILE=/etc/glare/glare.conf
-ExecStart=/usr/local/bin/uwsgi --module glare.wsgi:application --chmod-socket=777 --vacuum --uid {{glare_user}} --socket {{glare_uwsgi_socket}} --workers {{glare_workers | default(1)}} --logto /tmp/glare.log
+ExecStart=/usr/local/bin/uwsgi --module glare.wsgi:application --chmod-socket=777 --vacuum --uid {{glare_user}} --socket {{glare_uwsgi_socket}} --workers {{glare_workers | default(1)}} --logto /tmp/glare.log --logfile-chmod 644 -b 65535
 KillMode=control-group
 Restart=on-failure
 
